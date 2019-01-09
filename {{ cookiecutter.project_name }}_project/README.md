@@ -37,31 +37,6 @@ Detailed description of each item above:
 * *template.yaml*: This file is a template that AWS uses in order to build the packaged Lambda file which can be deployed.
 * *tests*: Contains all of the tests, note that for this example the test data can be used when invoking and manually testing a Lambda function in addition to being used as part of automated tests.
 
-## Requirements
-
-* AWS CLI with Administrator permission
-* [Python 3 installed](https://www.python.org/downloads/)
-* [Pipenv installed](https://github.com/pypa/pipenv)
-    - `pip install pipenv`
-* [Docker installed](https://www.docker.com/community-edition)
-* [SAM Local installed](https://github.com/awslabs/aws-sam-local)
-
-Python 2.7 will no longer be supported after 2019. It is suggested to use the most current version of Python, Python3.7, for all new Lambda functions.
-
-# Cloning this repo
-
-Once the dependencies are downloaded this repo can be cloned for a new project. To clone this project run the following command.
-
-```bash
-sam init \
---runtime python3.7 \
---output-dir $PWD \
---name sampleLambda \
---location git+ssh://git@github.com/aws-samples/cookiecutter-aws-sam-python.git
-```
-
-This will set up a new SAM (Serverless Application Model) with Python3.7 as the environment version, located in the current directory, and using this repo as a template for the project structure.
-
 # Development
 
 This project should run, as is. Changes can be made to the `{{ cookiecutter.project_name }}/{{ cookiecutter.project_name }}.py` file to update the functionality. In addition, requirements should be added to the `{{ cookiecutter.project_name }}/requirements.txt` file. Amazon manages the version of Python on their own and since Lambda is a managed service Amazon will push out updates to base Python packages on their own. Because of this it is a best practice to always provide the version of the requirements packages needed (`pip freeze` can be run to get the current version of all requirements).
