@@ -13,36 +13,26 @@ This is a [Cookiecutter](https://github.com/audreyr/cookiecutter) template to cr
 
 Python 2.7 will no longer be supported after 2019. It is suggested to use the most current version of Python, Python3.7, for all new Lambda functions.
 
-# Cloning this repo
-
-Once the dependencies are downloaded this repo can be cloned for a new project. To clone this project run the following command.
-
-```bash
-sam init \
---runtime python3.7 \
---output-dir $PWD \
---location git+ssh://git@github.com/aws-samples/cookiecutter-aws-sam-python.git
-```
-Prompts the output:
-```bash
-
-```
-
-This will set up a new SAM (Serverless Application Model) with Python3.7 as the environment version, located in the current directory, and using this repo as a template for the project structure.
-
 
 ## Usage
 
+This will set up a new SAM (Serverless Application Model) with Python3.7 as the environment version, located in the current directory, and using this repo as a template for the project structure.
+
 Generate a new SAM based Serverless App:
-`
-sam init \                      
+```
+sam init \
 --runtime python3.7 \
 --output-dir $PWD \
---name sampleLambda \
---location git+https://github.com/sewardgw/lambda-python37-template
-`
+--location https://github.com/sewardgw/lambda-python37-template
+```
 
 You'll be prompted a few questions to help this cookiecutter template to scaffold this project and after its completed you should see a new folder at your current path with the name of the project you gave as input.
+
+
+```bash
+project_name [Name of the project]: my-sample-lambda
+project_short_description [A short description of the project]: "Just a short description"
+```
 
 To keep with Python Pep8 naming conventions, it is suggested to keep the project name all lower case and to only user underscores, not hyphens or spaces, in the project name.
 
