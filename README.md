@@ -37,3 +37,5 @@ project_short_description [A short description of the project]: "Just a short de
 To keep with Python Pep8 naming conventions, it is suggested to keep the project name all lower case and to only user underscores, not hyphens or spaces, in the project name.
 
 If you have already executed this before you will be prompted to download the file again, you can choose yes or no for this.
+
+The remainder of the walkthrough can be found in the `{{ cookiecutter.project_name }}_project/README.md` file.
