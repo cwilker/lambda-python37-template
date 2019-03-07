@@ -71,7 +71,7 @@ After a package is created it needs to be uploaded into S3 in order to allow it 
 If an S3 bucket has not already been created, create one.
 NOTE: This S3 bucket should already be created and is used for hosting code. If possible do not create extra buckets.
 ```bash
-aws s3 mb s3://s3-bucket-name
+aws s3 mb s3://some-bucket-name
 ```
 
 Next, run the following command to package our Lambda function to S3:
@@ -79,7 +79,7 @@ Next, run the following command to package our Lambda function to S3:
 ```bash
 sam package \
     --output-template-file deploy_template/packaged.yaml \
-    --s3-bucket s3-bucket-name
+    --s3-bucket some-bucket-name
 ```
 
 When you run this command you will see something similar to this output:
