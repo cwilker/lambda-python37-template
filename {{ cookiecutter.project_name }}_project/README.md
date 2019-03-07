@@ -21,9 +21,10 @@ Project structure:
 ├── template.yaml                           <-- SAM Template
 └── tests                                   <-- Unit tests
     ├── test_data                           <-- Test data used in the tests
+        └── sample_event.json
     └── unit
         ├── __init__.py
-        └── test_analytical_db_access.py
+        └── test_handler.py
 ```
 
 Detailed description of each item above:
@@ -70,7 +71,7 @@ After a package is created it needs to be uploaded into S3 in order to allow it 
 If an S3 bucket has not already been created, create one.
 NOTE: This S3 bucket should already be created and is used for hosting code. If possible do not create extra buckets.
 ```bash
-aws s3 mb s3://cf-code-deploy
+aws s3 mb s3://s3-bucket-name
 ```
 
 Next, run the following command to package our Lambda function to S3:
@@ -78,7 +79,7 @@ Next, run the following command to package our Lambda function to S3:
 ```bash
 sam package \
     --output-template-file deploy_template/packaged.yaml \
-    --s3-bucket cf-code-deploy
+    --s3-bucket s3-bucket-name
 ```
 
 When you run this command you will see something similar to this output:
@@ -107,40 +108,6 @@ aws cloudformation describe-stacks \
     --stack-name {{ cookiecutter.project_name }} \
     --query 'Stacks[].Outputs'
 ```
-
-## Adding Roles and Access
-
-After the code has been deployed through the command line or through the GUI, the roles and VPC information need to be added. This can be done by changing the `template.yaml` file as well and adding the following (with your role and your subnet) to the Lambda function configurations:
-
-```yaml
-## Lambda function to read from the blacklist
-  FirstFunction:
-    Type: AWS::Serverless::Function
-    Properties:
-      CodeUri: {{ cookiecutter.project_name }}/
-      Handler: {{ cookiecutter.project_name }}.lambda_handler
-      FunctionName: my-lambda-function-name
-      Runtime: python3.7
-      Role: ARN-OF-THE-EXISTING-ROLE
-      VpcConfig:
-        SecurityGroupIds: [LIST_OF, EXISTING, SECURITY_GROUPS]
-        SubnetIds: [LIST_OF, EXISTING, SUBNETS]
-```
-
-Sometimes it may be necessary to give other resources access to invoke your Lambda. One example is to allow an existing SNS topic to be able to push events to your Lambda function. To do this you must provide a Lambda Permission to the Lambda function. These permissions should also be added under the "Resources" section of the template. This is an example for how we reference an existing SNS topic and then use the built in _!Ref_ function to reference the ARN of the function we've created. This provides permission to the topic to invoke the Lambda:
-
-```yaml
-## Add the subscription to the Lambda
-LambdaInvokePermission:
-  Type: AWS::Lambda::Permission
-  Properties:
-    Action: lambda:InvokeFunction
-    Principal: sns.amazonaws.com
-    SourceArn: ARN-OF-EXISTING-SNS-TOPIC
-    FunctionName: !Ref FirstFunction.Arn
-```
-
-This will deploy the Lambda function with all of the functionality required to have connections to other services within AWS that exist within your VPC and are accessible by your role.
 
 
 ## Testing

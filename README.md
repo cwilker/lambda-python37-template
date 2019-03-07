@@ -4,7 +4,7 @@ This is a [Cookiecutter](https://github.com/audreyr/cookiecutter) template to cr
 
 ## Requirements
 
-* AWS CLI with Administrator permission
+* [AWS CLI with Administrator permission](https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-install.html)
 * [Python 3 installed](https://www.python.org/downloads/)
 * [Pipenv installed](https://github.com/pypa/pipenv)
     - `pip install pipenv`
